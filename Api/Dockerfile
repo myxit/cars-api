@@ -13,6 +13,7 @@ COPY ./ ./AntilopaApi/
 WORKDIR /app/AntilopaApi
 RUN dotnet publish -c Release -o out
 
+#RUN dotnet ef database update
 
 # # test application -- see: dotnet-docker-unit-testing.md
 # FROM build AS testrunner

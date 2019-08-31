@@ -29,25 +29,9 @@ namespace AntilopaApi
 {
   public class Startup
   {
-    // public Startup(IConfiguration configuration)
-    // {
-    //     Configuration = configuration;
-    // }
-    public Startup(IHostingEnvironment env)
+    public Startup(IConfiguration configuration)
     {
-      var builder = new ConfigurationBuilder()
-        .SetBasePath(env.ContentRootPath)
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-      if (env.IsDevelopment())
-      {
-        // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
-        builder.AddUserSecrets<Startup>();
-      }
-
-      builder.AddEnvironmentVariables();
-      Configuration = builder.Build();
+        Configuration = configuration;
     }
 
     public IConfiguration Configuration { get; }
@@ -55,11 +39,7 @@ namespace AntilopaApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      var conStr = Configuration.GetConnectionString("default");
-      Console.WriteLine($"ENV_CONNECTION_STRING: {conStr}");
-      services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("default")));
-
-
+      services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Default")));
 
       // ===== Add Jwt Authentication ========
       var key = Encoding.UTF8.GetBytes(Configuration["JwtKey"]);

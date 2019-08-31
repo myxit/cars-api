@@ -33,7 +33,7 @@ namespace AntilopaApi.Controllers
         {
             var cars = await _context.Cars.ToArrayAsync();
 
-            return this._mapper.Map<Car[], CarViewModel[]>(cars); 
+            return this._mapper.Map<Car[], CarViewModel[]>(cars);
         }
 
         [Authorize]
@@ -83,7 +83,7 @@ namespace AntilopaApi.Controllers
 
             this._context.Cars.Remove(findRes);
             await this._context.SaveChangesAsync();
-            return NoContent();            
+            return NoContent();
         }
     }
 }
