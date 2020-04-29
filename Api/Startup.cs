@@ -39,6 +39,7 @@ namespace AntilopaApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      
       services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Default")));
 
       // ===== Add Jwt Authentication ========
@@ -61,7 +62,6 @@ namespace AntilopaApi
         };
       });
 
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
       services.AddScoped<CarService>();
       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -104,7 +104,7 @@ namespace AntilopaApi
 
       app.UseHttpsRedirection();
       app.UseAuthentication();
-      app.UseMvc();
+
     }
   }
 }
